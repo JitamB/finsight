@@ -1,34 +1,32 @@
-# 💎 Finsight — Personal Finance for Young Professionals
+# Finsight — Personal Finance for Young Professionals
 
 A premium, dark-mode personal finance web experience designed to make financial awareness feel **approachable, clear, and engaging** — not intimidating.
 
 > Built for first-job professionals (22–28) managing salary for the first time.
 
-![Dashboard Preview](https://img.shields.io/badge/Status-Live-00d4aa?style=for-the-badge) ![HTML](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white) ![CSS](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white) ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-
 ---
 
-## ✨ Features
+## Features
 
-### 🏠 Smart Dashboard
+### Smart Dashboard
 - Animated balance counter with monthly sparkline
 - Canvas-rendered spending donut chart
 - Bento grid layout with goal progress rings & mood indicator
 - Recent transaction feed with category-coded icons
 
-### 📊 Spending Insights
+### Spending Insights
 - 6-month spending timeline (animated bar chart)
 - Category breakdown with proportional color-coded bars
 - AI-style smart insight cards (spending spikes, streaks, optimization tips)
 - Top merchants ranking
 
-### 🎯 Goal Tracking
+### Goal Tracking
 - Visual goal cards with animated progress bars
 - Streak counters for consistent saving behavior
 - Add custom goals with emoji icon picker
 - Summary dashboard (active goals, total saved, avg progress)
 
-### 💭 Money Mood — *Unique Feature*
+### Money Mood — *Unique Feature*
 A **weekly 60-second guided financial wellness reflection** that bridges the gap between cold numbers and your emotional relationship with money.
 
 - **Check-in flow**: Rate your feeling → Journal reflection → Completion
@@ -36,22 +34,19 @@ A **weekly 60-second guided financial wellness reflection** that bridges the gap
 - **Mood timeline**: Weekly emoji-based mood history
 - **Mood × Spending correlation**: Discover how emotions affect spending patterns
 
-### 👤 Profile & Settings
+### Profile & Settings
 - Account management with connected accounts
 - Toggle switches for notifications, dark mode, weekly reminders
 - Data export and privacy controls
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 No build tools needed — just open in a browser:
 
 ```bash
-# Clone the repo
 git clone https://github.com/YOUR_USERNAME/finsight.git
-
-# Open in browser
 open finsight/index.html
 ```
 
@@ -63,7 +58,7 @@ npx serve .
 
 ---
 
-## 🎨 Design System
+## Design System
 
 | Token | Value |
 |---|---|
@@ -77,19 +72,19 @@ npx serve .
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 finsight/
-├── index.html      # SPA shell with all 6 screens
-├── styles.css      # Complete design system & components
-├── app.js          # Interactive logic, charts, state management
+├── index.html
+├── styles.css
+├── app.js
 └── README.md
 ```
 
 ---
 
-## 🧠 Design Decisions
+## Design Decisions
 
 | Decision | Rationale |
 |---|---|
@@ -102,7 +97,7 @@ finsight/
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 - **HTML5** — Semantic structure
 - **CSS3** — Vanilla CSS with custom properties, `backdrop-filter`, CSS Grid
@@ -111,7 +106,7 @@ finsight/
 
 ---
 
-## 📱 Screens
+## Screens
 
 1. **Onboarding** — 3-step welcome flow (Welcome → Income → Priorities)
 2. **Dashboard** — Financial overview with balance, spending, goals, mood
@@ -122,7 +117,7 @@ finsight/
 
 ---
 
-## 📄 License
+## License
 
 MIT License — feel free to use, modify, and distribute.
 
