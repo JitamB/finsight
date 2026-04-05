@@ -1,0 +1,126 @@
+﻿Design a Personal Finance Experience for Young Professionals
+Objective
+To evaluate your UI and UX thinking through a practical design assignment that focuses on product clarity, interaction design, visual hierarchy, and user centered decision making.
+This assignment is intended to understand how you think as a designer when shaping a digital product experience from the ground up. We want to see how you approach user problems, structure information, build intuitive flows, and create interfaces that feel thoughtful, modern, and easy to use.
+This is not only about making screens look good. It is also about showing how you make design decisions, how you prioritize usability, and how you translate an idea into a meaningful product experience.
+Note: If you have already worked on a similar design project earlier, you may submit that project for evaluation. Please make sure to clearly explain how it aligns with this assignment and include the design file, case study, prototype link, or any other relevant material.
+________________
+
+
+Key Instructions
+* You are not required to follow a fixed design structure. You are free to define the flow, screen structure, interaction patterns, and visual style in the way you believe is most suitable.
+* Focus on problem solving, not just decoration. We are interested in how you think through the user journey and how your design supports clarity and ease of use.
+* Make reasonable assumptions where needed. If some details are not explicitly defined, you may make sensible decisions and document them clearly.
+* A smaller but well thought out design is better than a large but inconsistent one. We value strong fundamentals, coherence, and design reasoning more than unnecessary complexity.
+________________
+
+
+Flexibility
+You have full freedom to:
+* Use any design tool of your choice such as Figma, Adobe XD, Sketch, or equivalent
+* Define your own visual direction and design system approach
+* Create low fidelity, high fidelity, or a combination of both
+* Include wireframes, flows, prototypes, or case study notes
+* Choose mobile, desktop, or responsive design, depending on your concept
+________________
+
+
+Scenario
+Imagine you are designing a personal finance experience for young professionals who want a simpler and less intimidating way to understand their money habits.
+Many users struggle with finance products because they feel too technical, too dense, or too transactional. Your task is to design an experience that makes financial awareness feel approachable, clear, and engaging.
+This should feel like a general product concept meant to solve a real user problem. It should not feel like an internal tool or a company specific product.
+________________
+
+
+Core Requirement
+Design a product experience that helps users do the following in a simple and intuitive way:
+* View their financial overview
+* Understand spending behavior
+* Track basic goals or habits
+* Receive insights in a clear and useful format
+You may design this as a mobile app, web dashboard, or a responsive product, depending on your approach.
+________________
+
+
+What We Would Like to See
+1. Problem Framing
+Briefly define the kind of user you are designing for and what problem your design is trying to solve.
+For example, you may choose a user type such as:
+* First job professionals managing salary for the first time
+* Freelancers trying to track irregular income
+* Students transitioning into independent financial planning
+The exact persona is up to you, but your design decisions should feel connected to a clear user need.
+2. Information Architecture
+Show how you organize the product in a way that feels easy to understand.
+This may include:
+* Navigation structure
+* Screen hierarchy
+* Grouping of information
+* Prioritization of key actions and content
+We want to understand how you decide what the user should see first and how they move through the experience.
+3. Core Screens
+Design the main screens required to communicate your concept clearly.
+Examples may include:
+* Welcome or onboarding flow
+* Home or dashboard screen
+* Transaction or activity screen
+* Goal tracking screen
+* Insights or analytics screen
+* Profile or settings screen
+You do not have to include all of these. Choose the screens that best support your concept and make the experience feel complete.
+4. Unique Product Feature
+Include one distinctive feature that makes your design feel thoughtful and original.
+This feature should be relevant to the user problem and integrated naturally into the product experience.
+Examples could include:
+* A visual spending mood indicator
+* A weekly money reflection flow
+* A financial wellness score with explainable insights
+* A habit based savings challenge
+* A guided monthly check in experience
+* A simple money journal or decision log
+This part is intentionally open ended because we want to see your creativity and product thinking.
+5. User Flow and Interaction Thinking
+Show how a user completes an important task in your design.
+For example:
+* Adding an expense
+* Setting a savings goal
+* Reviewing a spending insight
+* Completing a weekly money check in
+This can be shown through a prototype, a flow diagram, or a series of connected screens. The goal is to understand how you think through actions, transitions, and user decision points.
+6. Visual Design Quality
+Your design should reflect strong UI fundamentals such as:
+* Clear hierarchy
+* Readable typography
+* Effective spacing
+* Consistent component usage
+* Thoughtful use of color
+* Clean and modern composition
+The design should feel polished, but clarity and usability should always come first.
+7. UX Reasoning
+Along with the screens, explain the reasoning behind key design choices.
+This may include:
+* Why you structured the flow in a certain way
+* Why you prioritized certain information
+* How your design reduces friction or confusion
+* How your unique feature supports the user
+This does not need to be a long case study, but it should be clear that your decisions were intentional.
+________________
+
+
+Evaluation Criteria
+1. Product Thinking
+How clearly the problem has been understood and translated into a meaningful design direction.
+2. User Experience
+How intuitive, clear, and easy to use the overall experience feels.
+3. Visual Design
+Quality of layout, hierarchy, consistency, and overall polish.
+4. Information Architecture
+How logically the content, navigation, and user flow are organized.
+5. Creativity
+How original and relevant the concept and unique feature feel.
+6. Design Reasoning
+How well the decisions are explained and connected to user needs.
+7. Completeness
+How effectively the chosen screens and flows communicate a coherent product experience.
+8. Documentation and Presentation
+How clearly the work is presented, including prototype links, notes, and explanation of the concept.

@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Finsight — A personal finance experience for young professionals. Track spending, set goals, and reflect on your money habits.">
+  <title>Finsight — Your Money, Your Way</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💎</text></svg>">
+</head>
+<body>
+
+  <!-- Ambient Background -->
+  <div class="ambient-bg">
+    <div class="ambient-orb"></div>
+    <div class="ambient-orb"></div>
+    <div class="ambient-orb"></div>
+  </div>
+
+  <div class="app-container" id="app">
+
+    <!-- ==================== SCREEN: ONBOARDING ==================== -->
+    <div class="screen active" id="screen-onboarding">
+      <div class="onboarding">
+        <div class="onboarding-steps">
+          <!-- Step 1: Welcome -->
+          <div class="onboarding-step active" data-step="1">
+            <div class="onboarding-icon bg-teal">
+              <span>💎</span>
+            </div>
+            <h1>Welcome to <span class="text-gradient">Finsight</span></h1>
+            <p>Your money doesn't have to feel complicated. Let's make finances feel calm, clear, and even — dare we say — enjoyable.</p>
+            <button class="btn btn-primary" onclick="nextOnboardingStep()">Let's Begin</button>
+            <button class="btn btn-ghost" onclick="skipOnboarding()">I've done this before →</button>
+          </div>
+
+          <!-- Step 2: Income Setup -->
+          <div class="onboarding-step" data-step="2">
+            <div class="onboarding-icon bg-purple">
+              <span>💰</span>
+            </div>
+            <h1>What's your <span class="text-gradient">monthly income</span>?</h1>
+            <p>This helps us personalize your spending insights. You can always change this later.</p>
+            <div style="width: 100%; max-width: 280px;">
+              <input type="text" class="form-input text-center" id="income-input" placeholder="₹ 50,000" style="font-size: 1.5rem; font-weight: 700; text-align: center;">
+            </div>
+            <button class="btn btn-primary" onclick="nextOnboardingStep()">Continue</button>
+            <button class="btn btn-ghost" onclick="nextOnboardingStep()">Skip for now</button>
+          </div>
+
+          <!-- Step 3: Priorities -->
+          <div class="onboarding-step" data-step="3">
+            <div class="onboarding-icon bg-blue">
+              <span>🎯</span>
+            </div>
+            <h1>What matters <span class="text-gradient">most to you</span>?</h1>
+            <p>Pick your top financial priorities. This shapes your dashboard experience.</p>
+            <div class="category-picker" style="max-width: 300px;">
+              <div class="category-option" onclick="togglePriority(this)">
+                <span class="cat-emoji">📊</span>
+                <span class="cat-label">Tracking</span>
+              </div>
+              <div class="category-option" onclick="togglePriority(this)">
+                <span class="cat-emoji">🎯</span>
+                <span class="cat-label">Goals</span>
+              </div>
+              <div class="category-option" onclick="togglePriority(this)">
+                <span class="cat-emoji">💡</span>
+                <span class="cat-label">Insights</span>
+              </div>
+              <div class="category-option" onclick="togglePriority(this)">
+                <span class="cat-emoji">🧘</span>
+                <span class="cat-label">Mindful</span>
+              </div>
+            </div>
+            <button class="btn btn-primary" onclick="completeOnboarding()" style="margin-top: 12px;">Start My Journey ✨</button>
+          </div>
+        </div>
+
+        <div class="step-indicators">
+          <div class="step-dot active" data-dot="1"></div>
+          <div class="step-dot" data-dot="2"></div>
+          <div class="step-dot" data-dot="3"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== SCREEN: DASHBOARD ==================== -->
+    <div class="screen" id="screen-dashboard">
+      <!-- Header -->
+      <div class="dashboard-header animate-in">
+        <div class="user-greeting">
+          <h2>Good evening, <span class="text-gradient">Alex</span></h2>
+          <div class="greeting-sub">Here's your financial snapshot</div>
+        </div>
+        <div class="user-avatar" onclick="navigateTo('profile')">A</div>
+      </div>
+
+      <!-- Balance Card -->
+      <div class="glass-card balance-card animate-in">
+        <span class="label">Total Balance</span>
+        <div class="balance-amount" id="balance-display">₹0</div>
+        <span class="balance-change">↑ 12% from last month</span>
+        <div class="balance-actions">
+          <button class="balance-action" onclick="openAddExpense()">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+            Add Expense
+          </button>
+          <button class="balance-action" onclick="navigateTo('insights')">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M18 9l-5 5-3-3-4 4"/></svg>
+            Analytics
+          </button>
+        </div>
+      </div>
+
+      <!-- Bento Grid -->
+      <div class="bento-grid">
+        <!-- Spending Donut -->
+        <div class="glass-card glass-card-sm bento-item wide animate-in" onclick="navigateTo('insights')">
+          <span class="label">Monthly Spending</span>
+          <div class="donut-container">
+            <div class="donut-wrapper">
+              <canvas id="spending-donut" width="200" height="200"></canvas>
+              <div class="donut-center">
+                <div class="amount" id="total-spent">₹0</div>
+                <div class="sub">this month</div>
+              </div>
+            </div>
+            <div class="legend" id="donut-legend"></div>
+          </div>
+        </div>
+
+        <!-- Goal Progress -->
+        <div class="glass-card glass-card-sm bento-item animate-in" onclick="navigateTo('goals')">
+          <span class="label">Top Goal</span>
+          <div class="progress-ring-container">
+            <svg class="progress-ring" viewBox="0 0 52 52">
+              <circle cx="26" cy="26" r="22" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="4"/>
+              <circle id="goal-ring" cx="26" cy="26" r="22" fill="none" stroke="url(#goalGrad)" stroke-width="4" stroke-linecap="round"
+                      stroke-dasharray="138.23" stroke-dashoffset="138.23" transform="rotate(-90 26 26)"/>
+              <defs>
+                <linearGradient id="goalGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#667eea"/>
+                  <stop offset="100%" stop-color="#00d4aa"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <div class="progress-info">
+              <div class="progress-label">Emergency Fund</div>
+              <div class="progress-value" id="goal-progress-text">₹0 / ₹50,000</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Money Mood Mini -->
+        <div class="glass-card glass-card-sm bento-item animate-in" onclick="navigateTo('mood')">
+          <span class="label">Money Mood</span>
+          <div class="mood-mini">
+            <span class="mood-emoji" id="mood-emoji-mini">😊</span>
+            <div class="mood-details">
+              <div class="mood-label">Feeling Good</div>
+              <div class="mood-sub">Tap to reflect</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sparkline Mini -->
+      <div class="glass-card glass-card-sm animate-in mb-lg" onclick="navigateTo('insights')">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <span class="label">Weekly Trend</span>
+          <span class="text-xs text-secondary">Last 7 days</span>
+        </div>
+        <div class="sparkline" id="dashboard-sparkline"></div>
+      </div>
+
+      <!-- Recent Transactions -->
+      <div class="section-header animate-in">
+        <h3>Recent Activity</h3>
+        <button class="see-all" onclick="navigateTo('insights')">See All</button>
+      </div>
+      <div class="transaction-list" id="transaction-list">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+
+    <!-- ==================== SCREEN: INSIGHTS ==================== -->
+    <div class="screen" id="screen-insights">
+      <div class="insights-header">
+        <h2>Spending <span class="text-gradient">Insights</span></h2>
+        <p class="text-secondary text-sm" style="margin-top: 4px;">Understand where your money flows</p>
+        <div class="period-selector">
+          <button class="period-btn active" data-period="week">Week</button>
+          <button class="period-btn" data-period="month">Month</button>
+          <button class="period-btn" data-period="year">Year</button>
+        </div>
+      </div>
+
+      <!-- Spending Timeline -->
+      <div class="glass-card chart-card animate-in">
+        <span class="label">Spending Over Time</span>
+        <div class="bar-chart" id="spending-bars"></div>
+      </div>
+
+      <!-- Category Breakdown -->
+      <div class="glass-card chart-card animate-in">
+        <span class="label">Where It Goes</span>
+        <div class="category-bars" id="category-breakdown"></div>
+      </div>
+
+      <!-- AI Insight Cards -->
+      <div class="section-header animate-in">
+        <h3>✨ Smart Insights</h3>
+      </div>
+      <div id="insight-cards" class="animate-in">
+        <!-- Populated by JS -->
+      </div>
+
+      <!-- Top Merchants -->
+      <div class="glass-card animate-in" style="margin-top: var(--space-md);">
+        <span class="label">Top Merchants</span>
+        <div id="top-merchants" style="margin-top: var(--space-md);"></div>
+      </div>
+    </div>
+
+    <!-- ==================== SCREEN: GOALS ==================== -->
+    <div class="screen" id="screen-goals">
+      <div class="goals-header">
+        <div>
+          <h2>Your <span class="text-gradient">Goals</span></h2>
+          <p class="text-secondary text-sm" style="margin-top: 4px;">Building your future, step by step</p>
+        </div>
+        <button class="btn btn-sm btn-secondary" onclick="openAddGoal()">+ New Goal</button>
+      </div>
+
+      <!-- Goal Summary -->
+      <div class="glass-card animate-in" style="margin-bottom: var(--space-lg); text-align: center; padding: var(--space-xl);">
+        <div style="display: flex; justify-content: center; gap: var(--space-2xl); flex-wrap: wrap;">
+          <div>
+            <div class="label">Active Goals</div>
+            <div class="bento-value text-gradient" id="active-goals-count">3</div>
+          </div>
+          <div>
+            <div class="label">Total Saved</div>
+            <div class="bento-value" id="total-saved-display">₹0</div>
+          </div>
+          <div>
+            <div class="label">Avg Progress</div>
+            <div class="bento-value text-accent" id="avg-progress-display">0%</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="goals-grid" id="goals-grid">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+
+    <!-- ==================== SCREEN: MONEY MOOD ==================== -->
+    <div class="screen" id="screen-mood">
+      <div class="mood-screen-header">
+        <h2>Money <span class="text-gradient">Mood</span></h2>
+        <p class="text-secondary text-sm">How's your relationship with money this week?</p>
+      </div>
+
+      <!-- Mood Score -->
+      <div class="glass-card mood-score-card animate-in">
+        <div class="label">Financial Wellness Score</div>
+        <div class="mood-score-value" id="wellness-score">72</div>
+        <div class="mood-score-label">out of 100 — You're doing great! 🌟</div>
+      </div>
+
+      <!-- Weekly Mood Timeline -->
+      <div class="glass-card animate-in">
+        <span class="label">This Week's Moods</span>
+        <div class="mood-week" id="mood-week-display">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Check-in CTA -->
+      <div class="glass-card mood-checkin-card animate-in" style="margin-top: var(--space-lg);" id="mood-checkin-container">
+        <!-- Check-in Step 1: Mood Selection -->
+        <div class="checkin-step active" data-checkin="1">
+          <div class="mood-question">How do you feel about your spending this week?</div>
+          <div class="mood-options" id="mood-options">
+            <div class="mood-option" onclick="selectMood(this, 'confident')" data-mood="confident">
+              <span class="mood-opt-emoji">😎</span>
+              <span class="mood-opt-label">Confident</span>
+            </div>
+            <div class="mood-option" onclick="selectMood(this, 'proud')" data-mood="proud">
+              <span class="mood-opt-emoji">🥳</span>
+              <span class="mood-opt-label">Proud</span>
+            </div>
+            <div class="mood-option" onclick="selectMood(this, 'neutral')" data-mood="neutral">
+              <span class="mood-opt-emoji">😐</span>
+              <span class="mood-opt-label">Neutral</span>
+            </div>
+            <div class="mood-option" onclick="selectMood(this, 'anxious')" data-mood="anxious">
+              <span class="mood-opt-emoji">😰</span>
+              <span class="mood-opt-label">Anxious</span>
+            </div>
+            <div class="mood-option" onclick="selectMood(this, 'guilty')" data-mood="guilty">
+              <span class="mood-opt-emoji">😔</span>
+              <span class="mood-opt-label">Guilty</span>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-block" onclick="nextCheckinStep()" id="mood-next-btn" disabled>Continue</button>
+        </div>
+
+        <!-- Check-in Step 2: Journal -->
+        <div class="checkin-step" data-checkin="2">
+          <div class="mood-question">Any reflections on your week?</div>
+          <textarea class="mood-journal-input" id="mood-journal" placeholder="I felt good about saving for my trip, but maybe I spent too much on food..." rows="4"></textarea>
+          <button class="btn btn-primary btn-block" onclick="nextCheckinStep()">Complete Check-in ✨</button>
+          <button class="btn btn-ghost" onclick="nextCheckinStep()" style="margin-top: 8px;">Skip</button>
+        </div>
+
+        <!-- Check-in Step 3: Complete -->
+        <div class="checkin-step" data-checkin="3">
+          <div style="font-size: 3rem; margin-bottom: var(--space-md);">🌟</div>
+          <div class="mood-question">Nice work reflecting!</div>
+          <p class="text-secondary" style="margin-bottom: var(--space-lg);">Your Money Mood has been recorded. Small moments of awareness lead to big changes.</p>
+          <button class="btn btn-secondary btn-block" onclick="resetCheckin()">Done</button>
+        </div>
+      </div>
+
+      <!-- Mood Correlations -->
+      <div class="mood-correlation animate-in">
+        <div class="section-header" style="margin-top: var(--space-lg);">
+          <h3>Mood × Spending</h3>
+        </div>
+        <div class="correlation-item">
+          <span class="correlation-emoji">😎</span>
+          <span class="correlation-text">When <strong>Confident</strong>, you spend 15% less</span>
+          <span class="correlation-value text-accent">↓ ₹2,100</span>
+        </div>
+        <div class="correlation-item">
+          <span class="correlation-emoji">😰</span>
+          <span class="correlation-text">When <strong>Anxious</strong>, dining goes up 30%</span>
+          <span class="correlation-value" style="color: var(--color-danger);">↑ ₹1,800</span>
+        </div>
+        <div class="correlation-item">
+          <span class="correlation-emoji">🥳</span>
+          <span class="correlation-text">When <strong>Proud</strong>, you save 2× more</span>
+          <span class="correlation-value text-accent">↑ ₹4,500</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== SCREEN: PROFILE ==================== -->
+    <div class="screen" id="screen-profile">
+      <div class="profile-header">
+        <div class="profile-avatar">A</div>
+        <div class="profile-name">Alex Sharma</div>
+        <div class="profile-email">alex.sharma@email.com</div>
+      </div>
+
+      <div class="settings-group">
+        <div class="settings-group-title">Account</div>
+        <div class="settings-item">
+          <div class="settings-icon bg-teal">💰</div>
+          <div class="settings-text">
+            <div class="settings-label">Monthly Income</div>
+            <div class="settings-desc">₹50,000 per month</div>
+          </div>
+          <span class="settings-arrow">›</span>
+        </div>
+        <div class="settings-item">
+          <div class="settings-icon bg-purple">🏦</div>
+          <div class="settings-text">
+            <div class="settings-label">Connected Accounts</div>
+            <div class="settings-desc">2 accounts linked</div>
+          </div>
+          <span class="settings-arrow">›</span>
+        </div>
+        <div class="settings-item">
+          <div class="settings-icon bg-blue">💱</div>
+          <div class="settings-text">
+            <div class="settings-label">Currency</div>
+            <div class="settings-desc">Indian Rupee (₹)</div>
+          </div>
+          <span class="settings-arrow">›</span>
+        </div>
+      </div>
+
+      <div class="settings-group">
+        <div class="settings-group-title">Preferences</div>
+        <div class="settings-item">
+          <div class="settings-icon bg-amber">🔔</div>
+          <div class="settings-text">
+            <div class="settings-label">Notifications</div>
+            <div class="settings-desc">Daily spending alerts</div>
+          </div>
+          <div class="toggle active" onclick="this.classList.toggle('active')"></div>
+        </div>
+        <div class="settings-item">
+          <div class="settings-icon bg-indigo">🌙</div>
+          <div class="settings-text">
+            <div class="settings-label">Dark Mode</div>
+            <div class="settings-desc">Always on</div>
+          </div>
+          <div class="toggle active" onclick="this.classList.toggle('active')"></div>
+        </div>
+        <div class="settings-item">
+          <div class="settings-icon bg-pink">📅</div>
+          <div class="settings-text">
+            <div class="settings-label">Weekly Mood Reminder</div>
+            <div class="settings-desc">Sundays at 7 PM</div>
+          </div>
+          <div class="toggle active" onclick="this.classList.toggle('active')"></div>
+        </div>
+      </div>
+
+      <div class="settings-group">
+        <div class="settings-group-title">Data & Privacy</div>
+        <div class="settings-item">
+          <div class="settings-icon bg-green">📤</div>
+          <div class="settings-text">
+            <div class="settings-label">Export Data</div>
+            <div class="settings-desc">Download CSV or PDF report</div>
+          </div>
+          <span class="settings-arrow">›</span>
+        </div>
+        <div class="settings-item">
+          <div class="settings-icon bg-red">🔒</div>
+          <div class="settings-text">
+            <div class="settings-label">Privacy & Security</div>
+            <div class="settings-desc">App lock, data sharing</div>
+          </div>
+          <span class="settings-arrow">›</span>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: var(--space-xl);">
+        <button class="btn btn-ghost" style="color: var(--color-danger);">Sign Out</button>
+        <p class="text-xs text-secondary" style="margin-top: var(--space-md);">Finsight v1.0 • Made with 💎</p>
+      </div>
+    </div>
+
+  </div><!-- end app-container -->
+
+  <!-- ==================== BOTTOM NAVIGATION ==================== -->
+  <nav class="bottom-nav hidden" id="bottom-nav">
+    <button class="nav-item active" data-screen="dashboard" onclick="navigateTo('dashboard')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+        <polyline points="9 22 9 12 15 12 15 22"/>
+      </svg>
+      <span>Home</span>
+    </button>
+    <button class="nav-item" data-screen="insights" onclick="navigateTo('insights')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+      </svg>
+      <span>Insights</span>
+    </button>
+    <button class="nav-item" data-screen="goals" onclick="navigateTo('goals')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>
+      </svg>
+      <span>Goals</span>
+    </button>
+    <button class="nav-item" data-screen="mood" onclick="navigateTo('mood')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/>
+      </svg>
+      <span>Mood</span>
+    </button>
+    <button class="nav-item" data-screen="profile" onclick="navigateTo('profile')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+      </svg>
+      <span>Profile</span>
+    </button>
+  </nav>
+
+  <!-- ==================== FAB ==================== -->
+  <button class="fab hidden" id="fab" onclick="openAddExpense()">
+    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+      <path d="M12 5v14M5 12h14"/>
+    </svg>
+  </button>
+
+  <!-- ==================== ADD EXPENSE MODAL ==================== -->
+  <div class="modal-overlay" id="expense-modal">
+    <div class="modal-content">
+      <div class="modal-handle"></div>
+      <div class="modal-header">
+        <h3>Add Expense</h3>
+        <button class="modal-close" onclick="closeModal('expense-modal')">×</button>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Amount</label>
+        <input type="text" class="form-input" id="expense-amount" placeholder="₹ 0" style="font-size: 1.5rem; font-weight: 700; text-align: center;">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Category</label>
+        <div class="category-picker" id="expense-category">
+          <div class="category-option selected" data-cat="food" onclick="selectCategory(this)">
+            <span class="cat-emoji">🍕</span>
+            <span class="cat-label">Food</span>
+          </div>
+          <div class="category-option" data-cat="transport" onclick="selectCategory(this)">
+            <span class="cat-emoji">🚕</span>
+            <span class="cat-label">Transport</span>
+          </div>
+          <div class="category-option" data-cat="shopping" onclick="selectCategory(this)">
+            <span class="cat-emoji">🛍️</span>
+            <span class="cat-label">Shopping</span>
+          </div>
+          <div class="category-option" data-cat="entertainment" onclick="selectCategory(this)">
+            <span class="cat-emoji">🎮</span>
+            <span class="cat-label">Fun</span>
+          </div>
+          <div class="category-option" data-cat="bills" onclick="selectCategory(this)">
+            <span class="cat-emoji">📱</span>
+            <span class="cat-label">Bills</span>
+          </div>
+          <div class="category-option" data-cat="health" onclick="selectCategory(this)">
+            <span class="cat-emoji">💊</span>
+            <span class="cat-label">Health</span>
+          </div>
+          <div class="category-option" data-cat="education" onclick="selectCategory(this)">
+            <span class="cat-emoji">📚</span>
+            <span class="cat-label">Education</span>
+          </div>
+          <div class="category-option" data-cat="other" onclick="selectCategory(this)">
+            <span class="cat-emoji">📦</span>
+            <span class="cat-label">Other</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Note (optional)</label>
+        <input type="text" class="form-input" id="expense-note" placeholder="What was this for?">
+      </div>
+
+      <button class="btn btn-primary btn-block" onclick="addExpense()">Add Expense</button>
+    </div>
+  </div>
+
+  <!-- ==================== ADD GOAL MODAL ==================== -->
+  <div class="modal-overlay" id="goal-modal">
+    <div class="modal-content">
+      <div class="modal-handle"></div>
+      <div class="modal-header">
+        <h3>New Goal</h3>
+        <button class="modal-close" onclick="closeModal('goal-modal')">×</button>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Goal Name</label>
+        <input type="text" class="form-input" id="goal-name-input" placeholder="E.g., Weekend Trip Fund">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Target Amount</label>
+        <input type="text" class="form-input" id="goal-amount-input" placeholder="₹ 25,000" style="font-size: 1.25rem; font-weight: 600; text-align: center;">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Icon</label>
+        <div class="category-picker" id="goal-icon-picker">
+          <div class="category-option selected" data-icon="✈️" onclick="selectGoalIcon(this)">
+            <span class="cat-emoji">✈️</span>
+          </div>
+          <div class="category-option" data-icon="🏠" onclick="selectGoalIcon(this)">
+            <span class="cat-emoji">🏠</span>
+          </div>
+          <div class="category-option" data-icon="🎓" onclick="selectGoalIcon(this)">
+            <span class="cat-emoji">🎓</span>
+          </div>
+          <div class="category-option" data-icon="🚗" onclick="selectGoalIcon(this)">
+            <span class="cat-emoji">🚗</span>
+          </div>
+          <div class="category-option" data-icon="💻" onclick="selectGoalIcon(this)">
+            <span class="cat-emoji">💻</span>
+          </div>
+          <div class="category-option" data-icon="💍" onclick="selectGoalIcon(this)">
+            <span class="cat-emoji">💍</span>
+          </div>
+          <div class="category-option" data-icon="🏥" onclick="selectGoalIcon(this)">
+            <span class="cat-emoji">🏥</span>
+          </div>
+          <div class="category-option" data-icon="🎁" onclick="selectGoalIcon(this)">
+            <span class="cat-emoji">🎁</span>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn btn-primary btn-block" onclick="addGoal()">Create Goal 🎯</button>
+    </div>
+  </div>
+
+  <!-- ==================== SUCCESS OVERLAY ==================== -->
+  <div class="success-overlay" id="success-overlay">
+    <div class="success-check">✓</div>
+    <div class="success-text" id="success-text">Expense Added!</div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
